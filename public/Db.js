@@ -58,17 +58,13 @@ function checkDatabase() {
     }
   };
 }
-// function add(data) {
-//   var request = db.transaction(["budget"], "readwrite")
-//     .objectStore("budget")
-//   const store = request.objectStore("budget");
-//   store.add(data)
+function add() {
+  var request = db.transaction(["budget"], "readwrite")
+    .objectStore("budget")
+  const store = request.objectStore("budget");
+  store.add(data)
 
-const saveRecord = (record) => {
-  console.log('Save record invoked');
-  const transaction = db.transaction(["budget"], 'readwrite');
-  const store = transaction.objectStore("budget");
-  store.add(record);
+
 };
 
 
