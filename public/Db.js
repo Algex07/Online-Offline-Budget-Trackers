@@ -58,7 +58,7 @@ function checkDatabase() {
     }
   };
 }
-function add() {
+function saveRecord(data) {
   var request = db.transaction(["budget"], "readwrite")
     .objectStore("budget")
   const store = request.objectStore("budget");
