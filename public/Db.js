@@ -1,20 +1,17 @@
-window.indexedDB = window.indexedDB || window.mozIndexedDB ||
-  window.webkitIndexedDB || window.msIndexedDB;
+// window.indexedDB = window.indexedDB || window.mozIndexedDB ||
+//   window.webkitIndexedDB || window.msIndexedDB;
 
-window.IDBTransaction = window.IDBTransaction ||
-  window.webkitIDBTransaction || window.msIDBTransaction;
-window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange ||
-  window.msIDBKeyRange
-if (!window.indexedDB) {
-  window.alert("Your browser doesn't support a stable version of IndexedDB.")
-}
+// window.IDBTransaction = window.IDBTransaction ||
+//   window.webkitIDBTransaction || window.msIDBTransaction;
+// window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange ||
+//   window.msIDBKeyRange
+// if (!window.indexedDB) {
+//   window.alert("Your browser doesn't support a stable version of IndexedDB.")
+// }
 
 let db;
 let request = window.indexedDB.open("budget", 1);
 
-request.onerror = function (e) {
-  console.log("error: ");
-};
 
 request.onsuccess = function (e) {
   db = request.result;
@@ -22,12 +19,14 @@ request.onsuccess = function (e) {
 };
 request.onupgradeneeded = function (event) {
   var db = event.target.result;
-  var objectStore = db.createObjectStore("budget", { autoIncrement: true });
+ db.createObjectStore("budget", { autoIncrement: true });
 
-  for (var i in budgetData) {
-    objectStore.add(budgetData[i]);
-  }
+ 
 }
+
+request.onerror = function (e) {
+  console.log("error: "+e.target.errorCode);
+};
 
 
 function checkDatabase() {
@@ -60,7 +59,6 @@ function checkDatabase() {
 }
 function saveRecord(data) {
   var request = db.transaction(["budget"], "readwrite")
-    .objectStore("budget")
   const store = request.objectStore("budget");
   store.add(data)
 
